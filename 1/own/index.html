@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    form {
+      display: flex;
+      width: 500px;
+      height: 50px;
+      margin: auto;
+    }
+    input {
+      padding-left: 8px;
+      margin-right: 12px;
+      flex-grow: 1;
+      font-size: 18px;
+    }
+    .valid {
+      box-shadow: 0 0 10px 5px darkgreen;
+    }
+    .invalid {
+      box-shadow: 0 0 10px 5px darkred;
+    }
+  </style>
+  <body>
+    <form action="">
+      <input type="text" name="hashtags" placeholder="#hashTag" id="hashtags" />
+    </form>
+  </body>
+</html>
+
+<script>
+  const hashtagsInput = document.querySelector('#hashtags');
+  const validChars = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
+
+  function getHashtags() {
+    return hashtagsInput.value
+      .trim()
+      .split(/[ ]+/)
+      .map((ht) => ht.toLowerCase());
+    console.log('res = ', res);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    let hashtags = [];
+    let c0, c1, c2, c3, c4, c5c8, c9;
+
+    hashtagsInput.addEventListener('input', function () {
+      hashtags = getHashtags();
+
+      c0 = !!hashtags.length;
+      c1 = hashtags.every((hashtag) => hashtag[0] === '#');
+      c2 = hashtags.every((hashtag) =>
+        hashtag
+          .slice(1)
+          .split('')
+          .every((char) => validChars.includes(char))
+      );
+      c3 = hashtags.every((hashtag) => hashtag.length > 1);
+      c4 = hashtags.every((hashtag) => hashtag.length <= 20);
+      c5c8 = hashtags.every(
+        (hashtag) => hashtags.indexOf(hashtag) === hashtags.lastIndexOf(hashtag)
+      );
+      c9 = hashtags.length <= 5;
+
+      const isValid = c0 && c1 && c2 && c3 && c4 && c5c8 && c9;
+      console.log(
+        `validationResult = ${isValid} :: ${c0} && ${c1} && ${c2} && ${c3} && ${c4} && ${c5c8} && ${c9}`
+      );
+      if (isValid) {
+        this.classList.add('valid');
+        this.classList.remove('invalid');
+      } else {
+        this.classList.add('invalid');
+        this.classList.remove('valid');
+      }
+    });
+  });
+</script>
