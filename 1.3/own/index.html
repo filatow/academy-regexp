@@ -43,43 +43,35 @@
 </html>
 
 <script>
-  const hashtagsInput = document.querySelector('#hashtags');
+  const inputHashtags = document.querySelector('#hashtags');
   const validChars = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
 
   function getHashtags() {
-    return hashtagsInput.value
+    return inputHashtags.value
+      .toLowerCase()
       .trim()
-      .split(/[ ]+/)
-      .map((ht) => ht.toLowerCase());
-    console.log('res = ', res);
+      .split(/\s+/)
+      .filter((ht) => ht.length > 0);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    let hashtags = [];
-    let c0, c1, c2, c3, c4, c5c8, c9;
 
-    hashtagsInput.addEventListener('input', function () {
-      hashtags = getHashtags();
+    inputHashtags.addEventListener('input', function () {
+      const hashtags = getHashtags();
+      if (hashtags.length === 0) {
+        this.classList.remove('valid', 'invalid');
+        return;
+      }
 
-      c0 = !!hashtags.length;
-      c1 = hashtags.every((hashtag) => hashtag[0] === '#');
-      c2 = hashtags.every((hashtag) =>
-        hashtag
-          .slice(1)
-          .split('')
-          .every((char) => validChars.includes(char))
-      );
-      c3 = hashtags.every((hashtag) => hashtag.length > 1);
-      c4 = hashtags.every((hashtag) => hashtag.length <= 20);
-      c5c8 = hashtags.every(
+      // conditions
+      const c1_c4 = hashtags.every((hashtag) => /^#[a-zа-яё0-9]{1,19}$/.test(hashtag));
+      const c5c8 = hashtags.every(
         (hashtag) => hashtags.indexOf(hashtag) === hashtags.lastIndexOf(hashtag)
       );
-      c9 = hashtags.length <= 5;
+      const c9 = hashtags.length <= 5;
 
-      const isValid = c0 && c1 && c2 && c3 && c4 && c5c8 && c9;
-      console.log(
-        `validationResult = ${isValid} :: ${c0} && ${c1} && ${c2} && ${c3} && ${c4} && ${c5c8} && ${c9}`
-      );
+      const isValid = c1_c4 && c5c8 && c9;
+
       if (isValid) {
         this.classList.add('valid');
         this.classList.remove('invalid');
