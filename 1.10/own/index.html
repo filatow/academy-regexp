@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 1.10</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <form action="">
+      <input
+        type="text"
+        name="full_name"
+        placeholder="фамилия имя отчество"
+        required
+        pattern="^\s*[а-яё]+(-[а-яё]+)?\s+[а-яё]+(-[а-яё]+)?\s+[а-яё]+(-[а-яё]+)?\s*$"
+      />
+      <button type="submit">
+        send
+      </button>
+    </form>
+  </body>
+</html>
+
+<script>
+  const inputElement = document.querySelector('input[name=full_name]');
+
+  inputElement.addEventListener('input', function() {
+    const value = this.value;
+    if (!value) {
+      this.className = '';
+      return;
+    };
+    
+    const re = /^\s*[а-яё]+(-[а-яё]+)?\s+[а-яё]+(-[а-яё]+)?\s+[а-яё]+(-[а-яё]+)?\s*$/i;
+    if (re.test(value)) {
+      this.classList.add('valid');
+      this.classList.remove('invalid');
+    } else {
+      this.classList.add('invalid');
+      this.classList.remove('valid');
+    }
+    
+  });
+</script>
