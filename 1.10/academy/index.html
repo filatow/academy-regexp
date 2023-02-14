@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 1.10</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form action="">
+      <input
+        type="text"
+        name="full_name"
+        placeholder="фамилия имя отчество"
+        pattern="[а-яёА-ЯЁ- ]+"
+        required
+      />
+      <button type="submit">send</button>
+    </form>
+  </body>
+</html>
+
+<script>
+  const MAX_PARTS = 3;
+  const inputElement = document.querySelector('input[name=full_name]');
+
+  const parts = inputElement.value.split(/\s+/, MAX_PARTS);
+
+  inputElement.addEventListener('input', () => {
+    inputElement.setCustomValidity('');
+
+    const parts = inputElement.value.split(/\s+/, MAX_PARTS);
+
+    if (parts.length < MAX_PARTS) {
+      inputElement.setCustomValidity('Неверный формат данных');
+    }
+  });
+</script>
