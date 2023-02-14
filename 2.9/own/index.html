@@ -11,6 +11,8 @@
 
 <script>
   const trimChars = (str, chars = ' ') => {
+    if (typeof str !== 'string') return str;
+    
     chars = `(^[${chars}]+)|([${chars}]+$)`;
     const re = new RegExp(chars, 'g');
     return str.replace(re, '');
