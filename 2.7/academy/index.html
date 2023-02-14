@@ -24,7 +24,9 @@
       ];
 
       comments.forEach((item, _) => {
-        item.comment = item.comment.replace(/:\)+/g, '😀');
+        item.comment = item.comment
+          .replace(/:\){10,}/g, '😀😀😀')
+          .replace(/:\)+/g, '😀');
       });
 
       console.log(comments);
