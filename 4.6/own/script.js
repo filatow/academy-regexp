@@ -7,10 +7,14 @@ const Abbr = {
 };
 
 const insertAbbr = (str) => {
-  const re = /([^\.])\b(css|html|js)\b/ig;
-  
+  const re = /(\.)?\b(css|html|js)\b/ig;
+
   const result = str.replace(re, (_, $1, $2) => {
-    return `${$1}<abbr title=”${Abbr[$2.toUpperCase()]}”>${$2.toUpperCase()}</abbr>`;
+    if (!$1) {
+      const upper = $2.toUpperCase();
+      return `<abbr title=”${Abbr[upper]}”>${upper}</abbr>`;
+    }
+    return $1 + $2;
   });
 
   return result;
